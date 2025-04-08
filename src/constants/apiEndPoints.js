@@ -4,6 +4,7 @@ const API_ENDPOINTS = {
     poInwards: {
         getPendingWorkOrders: `${API_BASE_URL}/poInwards/pendingpos`,
         customerAcceptance: `${API_BASE_URL}/poInwards/customerAcceptance/fetchALL`,
+        createPO: `${API_BASE_URL}/poInwards/create`,
     },
     rfq: {
         pendingRFQ: `${API_BASE_URL}/rfq/pending`,
@@ -19,6 +20,14 @@ const API_ENDPOINTS = {
         approvedQuotations: `${API_BASE_URL}/quotations/approved`,
         rejectedQuotations: `${API_BASE_URL}/quotations/rejected`,
         createQuotation: `${API_BASE_URL}/quotations/create`,
+    },
+    employees: {
+        recruit: `${API_BASE_URL}/employees/recruit`,
+        layoff: `${API_BASE_URL}/employees/layoff`,
+        viewAllEmployees: `${API_BASE_URL}/employees/all`,
+    },
+    company: {
+        update: `${API_BASE_URL}/company/update`,
     },
 };
 

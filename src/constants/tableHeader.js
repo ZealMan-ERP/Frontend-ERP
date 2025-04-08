@@ -3,7 +3,7 @@ export const HEADER_ITEMS = {
     "Work Order Number": "workordernumber",
     "PO Number": "po_number",
     "Customer": "customer",
-    "Po Date": "po_date",
+    "PO Date": "po_date",
     "Amount": "amount",
     "Project Engineers": "project_engineers",
     "Quality Engineers": "quality_engineers",
@@ -26,16 +26,16 @@ export const HEADER_ITEMS = {
     "Status": "status",
   },
 
-  customers : {
+  customers: {
     "Customer Number": "id",
     "Customer": "name",
     "Address": "address",
     "City": "city",
     "Phone Number": "phone",
     "Email Address": "email"
-
   },
-   quotations : {
+
+  quotations: {
     "Quotation ID": "quotationid",
     "Customer ID": "customerid",
     "Name": "name",
@@ -44,6 +44,7 @@ export const HEADER_ITEMS = {
     "Delivery Date": "deliveryDate",
     "Admin Approved": "AdminApproved",
   },
+
   acceptanceStatus: {
     "Work Order Number": "workordernumber",
     "Customer Name": "customername",
@@ -52,6 +53,14 @@ export const HEADER_ITEMS = {
     "Special Instruction": "special_instruction",
     "Reason for Rejection": "reason_for_rejection",
     "Customer Acceptance Status": "customer_acceptance_status",
+  },
+
+  item_details: {
+    "Item Name": "item_name",
+    "Item Description": "item_description",
+    "Quantity": "quantity",
+    "Unit": "unit",
+    "Rate": "rate",
+    "Total": "total"
   }
-  
 };

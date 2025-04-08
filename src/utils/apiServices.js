@@ -1,5 +1,5 @@
-// src/utils/apiServices.js
 import API_ENDPOINTS from "../constants/apiEndPoints";
+
 export const fetchPendingWorkOrders = async () => {
   try {
     const response = await fetch(API_ENDPOINTS.poInwards.getPendingWorkOrders);
@@ -12,15 +12,11 @@ export const fetchPendingWorkOrders = async () => {
     if (Array.isArray(data.pendingPOs)) {
       const formattedData = data.pendingPOs.map((po) => {
         const projectEngineers = po.project_engineers
-          ? JSON.parse(po.project_engineers)
-              .map((eng) => eng.name)
-              .join(", ")
+          ? JSON.parse(po.project_engineers).map((eng) => eng.name).join(", ")
           : "";
 
         const qualityEngineers = po.quality_engineers
-          ? JSON.parse(po.quality_engineers)
-              .map((eng) => eng.name)
-              .join(", ")
+          ? JSON.parse(po.quality_engineers).map((eng) => eng.name).join(", ")
           : "";
 
         const formattedDeliveryDate = po.delivery_date
@@ -39,10 +35,7 @@ export const fetchPendingWorkOrders = async () => {
             quality_engineers: qualityEngineers,
             delivery_date: formattedDeliveryDate,
             po_date: formattedPoDate,
-          }).map(([key, value]) => [
-            key,
-            value !== null ? value.toString() : "",
-          ])
+          }).map(([key, value]) => [key, value !== null ? value.toString() : ""])
         );
 
         return convertedPO;
@@ -128,5 +121,28 @@ export const fetchAllCustomers = async () => {
     return formattedData;
   } catch (error) {
     console.error("Failed to fetch customers:", error);
-  } 
+  }
+};
+
+// ✅ New function to create a PO
+export const createPO = async (poData) => {
+  try {
+    const response = await fetch(API_ENDPOINTS.poInwards.createPO, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(poData),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error creating PO:", error);
+    throw error;
+  }
 };

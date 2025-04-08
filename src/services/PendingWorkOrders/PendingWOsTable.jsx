@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import FilterSection from "../components/FilterSection";
+import FilterSection from "../../components/FilterSection";
 import CustomTable from "../../components/CustomTable";
 import { HEADER_ITEMS } from "../../constants/tableHeader";
 import { fetchPendingWorkOrders } from "../../utils/apiServices";
@@ -25,7 +25,7 @@ function PendingWOsTable() {
       <FilterSection />
       <div className="w-full overflow-x-auto">
         {loading ? (
-            <CenteredLoader />
+          <CenteredLoader />
         ) : (
           <CustomTable
             headers={HEADER_ITEMS.pendingPo}
@@ -38,7 +38,7 @@ function PendingWOsTable() {
               },
             }}
             isAction={true}
-            onEdit={() => {}}
+            onEdit={() => { }}
           />
         )}
       </div>

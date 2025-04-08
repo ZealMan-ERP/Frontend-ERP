@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import FilterSection from '../Components/FilterSection'
-import QuotationTable from './QuotationTable'
+// import FilterSection from '../Components/FilterSection'
+// import QuotationTable from './QuotationTable'
 import UpdateRoleTable from './UpdateRoleTable'
-import Pagination from '../Components/Pagination'
 import RecruitEmployee from './RecruitEmployee'
-import LayOffEmployee from'./LayOffEmployee'
+import LayOffEmployee from './LayOffEmployee'
 
 
 function ValidateQuotations() {
@@ -18,31 +17,28 @@ function ValidateQuotations() {
           <nav className="flex flex-row items-start max-w-full text-base tracking-wide w-[498px]">
             <div
               onClick={() => setActiveTab('Recruit Employee')}
-              className={`flex-1 shrink gap-2.5 self-stretch px-7 py-6 text-blue-700 bg-white border-b-[3px] min-w-[240px] max-md:px-5 cursor-pointer ${
-                activeTab === 'Recruit Employee'
-                  ? 'border-blue-700'
-                  : 'border-transparent text-zinc-700'
-              }`}
+              className={`flex-1 shrink gap-2.5 self-stretch px-7 py-6 text-blue-700 bg-white border-b-[3px] min-w-[240px] max-md:px-5 cursor-pointer ${activeTab === 'Recruit Employee'
+                ? 'border-blue-700'
+                : 'border-transparent text-zinc-700'
+                }`}
             >
               Recruit Employee
             </div>
             <div
               onClick={() => setActiveTab('Lay Off Employee')}
-              className={`flex-1 shrink gap-2.5 self-stretch px-7 py-6 bg-white min-w-[240px] max-md:px-5 cursor-pointer ${
-                activeTab === 'Lay Off Employee'
-                  ? 'border-blue-700 text-blue-700 border-b-[3px]'
-                  : 'border-transparent text-zinc-700'
-              }`}
+              className={`flex-1 shrink gap-2.5 self-stretch px-7 py-6 bg-white min-w-[240px] max-md:px-5 cursor-pointer ${activeTab === 'Lay Off Employee'
+                ? 'border-blue-700 text-blue-700 border-b-[3px]'
+                : 'border-transparent text-zinc-700'
+                }`}
             >
               Lay Off Employee
             </div>
             <div
               onClick={() => setActiveTab('Update Role')}
-              className={`flex-1 shrink gap-2.5 self-stretch px-7 py-6 bg-white min-w-[240px] max-md:px-5 cursor-pointer ${
-                activeTab === 'Update Role'
-                  ? 'border-blue-700 text-blue-700 border-b-[3px]'
-                  : 'border-transparent text-zinc-700'
-              }`}
+              className={`flex-1 shrink gap-2.5 self-stretch px-7 py-6 bg-white min-w-[240px] max-md:px-5 cursor-pointer ${activeTab === 'Update Role'
+                ? 'border-blue-700 text-blue-700 border-b-[3px]'
+                : 'border-transparent text-zinc-700'
+                }`}
             >
               Update Role
             </div>
@@ -52,9 +48,9 @@ function ValidateQuotations() {
             <>
               <RecruitEmployee />
               <div className="flex justify-center items-center mt-20 gap-4">
-                <button className="border bg-[#0B57D0] px-5 w-[200px] h-[40px] text-white px-3 py-1 rounded-xl">
+                {/* <button className="border bg-[#0B57D0] px-5 w-[200px] h-[40px] text-white px-3 py-1 rounded-xl">
                   Update
-                </button>
+                </button> */}
               </div>
             </>
           )}
@@ -62,16 +58,15 @@ function ValidateQuotations() {
             <>
               <LayOffEmployee />
               <div className="flex justify-center items-center mt-20 gap-4">
-                <button className="border bg-[#0B57D0] px-5 w-[200px] h-[40px] text-white px-3 py-1 rounded-xl">
+                {/* <button className="border bg-[#0B57D0] px-5 w-[200px] h-[40px] text-white px-3 py-1 rounded-xl">
                   Remove
-                </button>
+                </button> */}
               </div>
             </>
           )}
           {activeTab === 'Update Role' && (
             <>
               <UpdateRoleTable />
-              <Pagination />
             </>
           )}
         </main>

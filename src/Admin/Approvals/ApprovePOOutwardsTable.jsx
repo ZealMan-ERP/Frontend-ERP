@@ -1,5 +1,4 @@
 import React from 'react'
-import Pagination from '../Components/Pagination'
 
 function QuotationTable() {
   const tableData = [
@@ -79,7 +78,6 @@ function QuotationTable() {
           ))}
         </tbody>
       </table>
-      <Pagination />
     </div>
   )
 }

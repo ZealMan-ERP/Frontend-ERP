@@ -5,7 +5,7 @@ import ApprovalsPage from './Approvals/Approvals'
 import ValidateQuotations from './Employee/Employee'
 import ViewInventory from './Inventory/Inventory'
 import CompanyDetails from './CompanyDetails/CompanyDetails'
-import Dashboard from './Home/Dashboard'
+// import Dashboard from './Home/Dashboard'
 
 function Admin() {
   const [activeTab, setActiveTab] = useState('Home')
@@ -23,7 +23,7 @@ function Admin() {
       case 'Company Details':
         return <CompanyDetails />
       default:
-        return <Dashboard />
+        return <PendingPOsPage />
     }
   }
 

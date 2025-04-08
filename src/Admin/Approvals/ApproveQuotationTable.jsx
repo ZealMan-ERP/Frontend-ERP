@@ -1,5 +1,4 @@
 import React from 'react'
-import Pagination from '../Components/Pagination'
 
 function ApproveQuotationTable() {
   const tableData = [
@@ -118,11 +117,10 @@ function ApproveQuotationTable() {
               <td className="px-4 py-4">{row.deliveryDate}</td>
               <td className="px-4 py-4">
                 <span
-                  className={`px-2 py-1 rounded-full ${
-                    row.status === 'Delivered'
+                  className={`px-2 py-1 rounded-full ${row.status === 'Delivered'
                       ? 'bg-green-100 text-green-600'
                       : 'bg-red-100 text-red-600'
-                  }`}
+                    }`}
                 >
                   {row.status}
                 </span>
@@ -155,7 +153,6 @@ function ApproveQuotationTable() {
           ))}
         </tbody>
       </table>
-      <Pagination />
     </div>
   )
 }

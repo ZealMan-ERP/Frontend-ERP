@@ -1,7 +1,7 @@
 import React from 'react'
 
 const menuItems = [
-  { name: 'Home', isActive: false },
+  // { name: 'Home', isActive: false },
   { name: "Pending Work Orders", isActive: false },
   { name: 'Approvals', isActive: false },
   { name: 'Employee', isActive: false },
@@ -25,9 +25,8 @@ function Sidebar({ onTabChange, activeTab }) {
             className="flex flex-col mt-8 max-w-full rounded-xl w-[153px]"
           >
             <div
-              className={`px-2.5 py-1 rounded-xl cursor-pointer ${
-                activeTab === item.name ? 'bg-blue-100' : 'bg-slate-50'
-              } max-md:pr-5`}
+              className={`px-2.5 py-1 rounded-xl cursor-pointer ${activeTab === item.name ? 'bg-blue-100' : 'bg-slate-50'
+                } max-md:pr-5`}
               onClick={() => onTabChange(item.name)}
             >
               {item.name}

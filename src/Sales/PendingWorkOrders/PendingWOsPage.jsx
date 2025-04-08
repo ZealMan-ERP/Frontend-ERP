@@ -4,7 +4,7 @@
 import React from "react";
 // import Sidebar from "../Components/Sidebar";
 import FilterSection from "../components/FilterSection";
-import PendingWOsTable from "./PendingWOsTable";
+import PendingWOsTable from "../../services/PendingWorkOrders/PendingWOsTable";
 
 function PendingWOsPage() {
   return (
