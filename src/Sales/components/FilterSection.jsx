@@ -1,8 +1,16 @@
 import * as React from "react";
 
 function FilterSection({ onFilter }) {
+  const [query, setQuery] = React.useState("");
+
+  const handleInputChange = (e) => {
+    const newQuery = e.target.value;
+    setQuery(newQuery);
+    onFilter(newQuery); // Trigger the filter function with the latest input
+  };
+
   return (
-    <div className="flex gap-9 my-[24px] text-base  rounded-none text-zinc-700">
+    <div className="flex gap-9 my-[24px] text-base rounded-none text-zinc-700">
       <form className="overflow-hidden flex-auto gap-1 self-stretch p-3 bg-white rounded border border-solid border-stone-300 min-w-[300px] max-w-[943px] w-full">
         <label htmlFor="searchInput" className="sr-only">
           Search Items
@@ -11,12 +19,14 @@ function FilterSection({ onFilter }) {
           type="search"
           id="searchInput"
           placeholder="Search Items"
+          value={query}
+          onChange={handleInputChange}
           className="w-full border-none outline-none bg-transparent"
           aria-label="Search Items"
         />
       </form>
       <button
-        onClick={onFilter}
+        onClick={() => onFilter(query)}
         className="object-contain shrink-0 my-auto aspect-square w-[35px] bg-transparent border-none"
         role="presentation"
       >
