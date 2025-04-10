@@ -1,28 +1,26 @@
 import React, { useEffect, useState } from "react";
 
-import FilterSection from "../../components/FilterSection";
+import FilterSection from "../../../components/FilterSection";
 import API_ENDPOINTS from "../../../constants/apiEndPoints";
 import { HEADER_ITEMS } from "../../../constants/tableHeader";
 import CustomTable from "../../../components/CustomTable";
+import { regexFilter } from "../../../utils/FilterFunction";
 
 function QuotationTable() {
   const [tableData, setTableData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchQuotations = async () => {
       try {
-        const response = await fetch(
-          API_ENDPOINTS.quotations.approvedQuotations
-        );
+        const response = await fetch(API_ENDPOINTS.quotations.approvedQuotations);
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
         const data = await response.json();
-        console.log("Fetched data:", data); // 👈 Add this to see the structure
-
         const quotationsList = data.approvedQuotation;
 
         if (Array.isArray(quotationsList)) {
@@ -38,9 +36,7 @@ function QuotationTable() {
             let itemDetails = [];
             try {
               itemDetails = JSON.parse(q.itemDetails);
-            } catch (err) {
-              console.warn("Invalid itemDetails JSON:", err);
-            }
+            } catch (err) { }
 
             return {
               quotationid: q.quotationid?.toString() || "",
@@ -54,13 +50,14 @@ function QuotationTable() {
           });
 
           setTableData(formattedQuotations);
+          setFilteredData(formattedQuotations);
         } else {
-          console.error("Expected data.quotations to be an array.");
           setTableData([]);
+          setFilteredData([]);
         }
       } catch (error) {
-        console.error("Error fetching quotations:", error);
         setTableData([]);
+        setFilteredData([]);
       } finally {
         setLoading(false);
       }
@@ -69,24 +66,29 @@ function QuotationTable() {
     fetchQuotations();
   }, []);
 
+  const handleFilter = (query) => {
+    const filtered = regexFilter(tableData, query);
+    setFilteredData(filtered);
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-white w-full max-md:max-w-full overflow-auto">
-      <FilterSection />
+      <FilterSection onFilter={handleFilter} />
       {loading ? (
         <p className="text-center text-gray-600 my-4">Loading data...</p>
       ) : (
         <CustomTable
           headers={HEADER_ITEMS.quotations}
-          data={tableData}
+          data={filteredData}
           headerValue={{
             "Admin Approved": {
-              approved: "#22c55e", // green
-              rejected: "#ff7316", // orange
-              hold: "#eab308", // yellow
+              approved: "#22c55e",
+              rejected: "#ff7316",
+              hold: "#eab308",
             },
           }}
           isAction={true}
-          onEdit={() => {}}
+          onEdit={() => { }}
         />
       )}
     </div>

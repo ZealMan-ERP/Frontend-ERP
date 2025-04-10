@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import FilterSection from "../../components/FilterSection";
+import FilterSection from "../../../components/FilterSection";
 import API_ENDPOINTS from "../../../constants/apiEndPoints";
 import CustomTable from "../../../components/CustomTable";
 import { HEADER_ITEMS } from "../../../constants/tableHeader";
 import CenteredLoader from "../../../components/LottiLoader";
-
-
+import { regexFilter } from "../../../utils/FilterFunction";
 function ViewAllRFQTable() {
   const [tableData, setTableData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -20,7 +20,6 @@ function ViewAllRFQTable() {
         const data = await response.json();
         console.log("API Response:", data);
 
-        // ✅ Since the API returns an array directly
         if (Array.isArray(data)) {
           const formattedData = data.map((rfq) => {
             const formattedCreatedAt = rfq.created_at
@@ -30,9 +29,9 @@ function ViewAllRFQTable() {
               ? new Date(rfq.lastDateToSubmit).toLocaleDateString()
               : "";
 
-              let statusText = "Pending";
-          if (rfq.status === 0) statusText = "Rejected";
-          else if (rfq.status === 1) statusText = "Quoted";
+            let statusText = "Pending";
+            if (rfq.status === 0) statusText = "Rejected";
+            else if (rfq.status === 1) statusText = "Quoted";
 
             return {
               rfqid: rfq.rfqid?.toString() || "",
@@ -52,12 +51,15 @@ function ViewAllRFQTable() {
           });
 
           setTableData(formattedData);
+          setFilteredData(formattedData);
         } else {
           setTableData([]);
+          setFilteredData([]);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
         setTableData([]);
+        setFilteredData([]);
       } finally {
         setLoading(false);
       }
@@ -66,24 +68,29 @@ function ViewAllRFQTable() {
     fetchData();
   }, []);
 
+  const handleFilter = (query) => {
+    const filtered = regexFilter(tableData, query);
+    setFilteredData(filtered);
+  };
+
   return (
     <div className="flex flex-col w-full max-md:max-w-full overflow-auto">
-      <FilterSection />
+      <FilterSection onFilter={handleFilter} />
       {loading ? (
-       <CenteredLoader />
+        <CenteredLoader />
       ) : (
         <CustomTable
-        headers={HEADER_ITEMS.rfqs}
-        data={tableData}
-        headerValue={{
-          Status: {
-            quoted: "#22c55e",
-            pending: "#eab308",
-            rejected: "#ff7316",
-          },
-        }}
-        isAction={false}
-      />
+          headers={HEADER_ITEMS.rfqs}
+          data={filteredData}
+          headerValue={{
+            Status: {
+              quoted: "#22c55e",
+              pending: "#eab308",
+              rejected: "#ff7316",
+            },
+          }}
+          isAction={false}
+        />
       )}
     </div>
   );

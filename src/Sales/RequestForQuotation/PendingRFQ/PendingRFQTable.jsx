@@ -4,9 +4,11 @@ import CustomTable from "../../../components/CustomTable";
 import { HEADER_ITEMS } from "../../../constants/tableHeader";
 import { fetchPendingRFQs } from "../../../utils/apiServices";
 import CenteredLoader from "../../../components/LottiLoader";
+import { regexFilter } from "../../../utils/FilterFunction"; // 👈 import your utility
 
 function PendingRFQTable() {
   const [tableData, setTableData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -14,31 +16,36 @@ function PendingRFQTable() {
       setLoading(true);
       const data = await fetchPendingRFQs();
       setTableData(data);
+      setFilteredData(data);
       setLoading(false);
     };
 
     getRFQData();
   }, []);
- 
+
+  const handleFilter = (query) => {
+    const filtered = regexFilter(tableData, query);
+    setFilteredData(filtered);
+  };
 
   return (
     <div className="flex flex-col w-full max-md:max-w-full overflow-auto">
-      <FilterSection />
+      <FilterSection onFilter={handleFilter} />
       {loading ? (
-         <CenteredLoader />
+        <CenteredLoader />
       ) : (
         <CustomTable
-        headers={HEADER_ITEMS.rfqs}
-        data={tableData}
-        headerValue={{
-          Status: {
-            quoted: "#22c55e",
-            pending: "#eab308",
-            rejected: "#ff7316",
-          },
-        }}
-        isAction={false}
-      />
+          headers={HEADER_ITEMS.rfqs}
+          data={filteredData}
+          headerValue={{
+            Status: {
+              quoted: "#22c55e",
+              pending: "#eab308",
+              rejected: "#ff7316",
+            },
+          }}
+          isAction={false}
+        />
       )}
     </div>
   );
