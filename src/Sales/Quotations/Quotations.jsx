@@ -1,25 +1,21 @@
-import React, { useState } from "react";
-import CreateQuotation from "./CreateQuotation/Inventory";
-import ViewAllQuotations from "./AllQuotation/QuotationTable";
-import ApprovedQuotations from "./ApprovedQuotation/QuotationTable";
-import RejectedQuotations from "./RejectQuotation/QuotationTable";
+import React from "react";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 
 function Quotations() {
-    const [activeTab, setActiveTab] = useState("all");
+    const location = useLocation();
+    const navigate = useNavigate();
 
-    const renderContent = () => {
-        switch (activeTab) {
-            case "create":
-                return <CreateQuotation />;
-            case "all":
-                return <ViewAllQuotations />;
-            case "approved":
-                return <ApprovedQuotations />;
-            case "rejected":
-                return <RejectedQuotations />;
-            default:
-                return <ViewAllQuotations />;
-        }
+    const getActiveTab = () => {
+        if (location.pathname.includes("create")) return "create";
+        if (location.pathname.includes("approved")) return "approved";
+        if (location.pathname.includes("rejected")) return "rejected";
+        return "view-all"; // default
+    };
+
+    const activeTab = getActiveTab();
+
+    const handleTabClick = (path) => {
+        navigate(path);
     };
 
     return (
@@ -27,44 +23,45 @@ function Quotations() {
             <div className="flex gap-4">
                 <button
                     className={`px-4 py-2 font-medium rounded ${activeTab === "create"
-                        ? "border-b-4 border-blue-500 text-blue-500"
-                        : "text-gray-700"
+                            ? "border-b-4 border-blue-500 text-blue-500"
+                            : "text-gray-700"
                         }`}
-                    onClick={() => setActiveTab("create")}
+                    onClick={() => handleTabClick("create")}
                 >
                     Create Quotation
                 </button>
                 <button
-                    className={`px-4 py-2 font-medium rounded ${activeTab === "all"
-                        ? "border-b-4 border-blue-500 text-blue-500"
-                        : "text-gray-700"
+                    className={`px-4 py-2 font-medium rounded ${activeTab === "view-all"
+                            ? "border-b-4 border-blue-500 text-blue-500"
+                            : "text-gray-700"
                         }`}
-                    onClick={() => setActiveTab("all")}
+                    onClick={() => handleTabClick("view-all")}
                 >
                     View All Quotations
                 </button>
-
                 <button
                     className={`px-4 py-2 font-medium rounded ${activeTab === "approved"
-                        ? "border-b-4 border-blue-500 text-blue-500"
-                        : "text-gray-700"
+                            ? "border-b-4 border-blue-500 text-blue-500"
+                            : "text-gray-700"
                         }`}
-                    onClick={() => setActiveTab("approved")}
+                    onClick={() => handleTabClick("approved")}
                 >
                     Approved Quotations
                 </button>
                 <button
                     className={`px-4 py-2 font-medium rounded ${activeTab === "rejected"
-                        ? "border-b-4 border-blue-500 text-blue-500"
-                        : "text-gray-700"
+                            ? "border-b-4 border-blue-500 text-blue-500"
+                            : "text-gray-700"
                         }`}
-                    onClick={() => setActiveTab("rejected")}
+                    onClick={() => handleTabClick("rejected")}
                 >
                     Rejected Quotations
                 </button>
             </div>
+
+            {/* Child route content will render here */}
             <div className="bg-white p-4 rounded shadow">
-                {renderContent()}
+                <Outlet />
             </div>
         </div>
     );
