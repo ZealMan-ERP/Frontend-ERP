@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import path from "path"
+import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,4 +10,11 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    outDir: 'dist',
+  },
+  server: {
+    // This handles client-side routing in dev
+    historyApiFallback: true,
+  }
 })
