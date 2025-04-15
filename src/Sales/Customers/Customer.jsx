@@ -1,46 +1,36 @@
-import React, { useState } from "react";
-import AddCustomer from "./AddCustomer/CustomerForm";
-import ViewCustomer from "./ViewCustomer/CustomerTable";
+import React from "react";
+import { useNavigate, useLocation, Outlet } from "react-router-dom";
 
 function Customer() {
-    const [activeTab, setActiveTab] = useState("view");
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    const renderContent = () => {
-        switch (activeTab) {
-            case "add":
-                return <AddCustomer />;
-            case "view":
-            default:
-                return <ViewCustomer />;
-        }
-    };
+    const currentTab = location.pathname.includes("add") ? "add" : "view";
 
     return (
         <div className="min-h-screen">
-            <h1 className="text-2xl font-bold text-center mb-4 text-sky-950">
-            </h1>
-            <div className="flex  gap-4 ">
+            <div className="flex gap-4">
                 <button
-                    className={`px-4 py-2 font-medium rounded ${activeTab === "view"
-                        ? " border-b-4 border-blue-500 text-blue-500 "
+                    className={`px-4 py-2 font-medium rounded ${currentTab === "view"
+                        ? "border-b-4 border-blue-500 text-blue-500"
                         : "text-gray-700"
                         }`}
-                    onClick={() => setActiveTab("view")}
+                    onClick={() => navigate("view-all")}
                 >
                     View Customers
                 </button>
                 <button
-                    className={`px-4 py-2 font-medium rounded ${activeTab === "add"
-                        ? " border-b-4 border-blue-500 text-blue-500 "
+                    className={`px-4 py-2 font-medium rounded ${currentTab === "add"
+                        ? "border-b-4 border-blue-500 text-blue-500"
                         : "text-gray-700"
                         }`}
-                    onClick={() => setActiveTab("add")}
+                    onClick={() => navigate("add")}
                 >
                     Add Customer
                 </button>
             </div>
             <div className="flex flex-col w-full max-md:max-w-full overflow-auto">
-                {renderContent()}
+                <Outlet />
             </div>
         </div>
     );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 
@@ -24,6 +24,13 @@ function Sales() {
 
   const currentPath = location.pathname.split("/")[2]; // e.g., 'quotations'
   const activeTab = Object.keys(TABS).find((key) => TABS[key] === currentPath) || "Pending Work Orders";
+
+  useEffect(() => {
+    // Ensures that the active tab is set correctly when the component is mounted or the path changes
+    if (!activeTab) {
+      navigate(`/sales/${TABS["Pending Work Orders"]}`);
+    }
+  }, [activeTab, navigate]);
 
   return (
     <div className="flex h-screen bg-slate-50 overflow-hidden">
