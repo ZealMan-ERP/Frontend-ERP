@@ -11,7 +11,7 @@ function AddPOInward3() {
     ];
 
     return (
-        <div className="p-4 mt-4 min-h-screen">
+        <div className="mt-4 min-h-screen">
             {/* Tab Buttons */}
             <div className="flex gap-4 mb-4">
                 {tabs.map((tab) => (
