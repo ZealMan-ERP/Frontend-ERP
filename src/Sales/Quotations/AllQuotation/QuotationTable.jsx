@@ -5,11 +5,14 @@ import CenteredLoader from "../../../components/LottiLoader";
 import { HEADER_ITEMS } from "../../../constants/tableHeader";
 import CustomTable from "../../../components/CustomTable";
 import { regexFilter } from "../../../utils/FilterFunction";
+import { handleEdit } from "@/utils/helperFunction";
+import { useNavigate } from "react-router-dom";
 
 function QuotationTable() {
   const [tableData, setTableData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchQuotations = async () => {
@@ -87,7 +90,7 @@ function QuotationTable() {
               },
             }}
             isAction={true}
-            onEdit={() => { }}
+              onEdit={(rowData) => handleEdit(rowData, rowData?.AdminApproved === "Approved" ? "/sales/add-po-inward/addpo" : "/sales/quotations/create",navigate)}
           />
         )}
       </div>

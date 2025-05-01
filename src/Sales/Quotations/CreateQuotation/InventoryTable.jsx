@@ -1,4 +1,5 @@
 import React from 'react'
+import DeleteIcon  from '../../../assets/delete'
 
 function InventoryTable() {
   const inventoryItems = [
@@ -147,13 +148,10 @@ function InventoryTable() {
           <div className="text-center" style={{ width: headers[7].width }}>
             {item.totalAmount}
           </div>
-          <div className="text-center" style={{ width: headers[8].width }}>
-            <img
-              src="https://your-icon-url.com/delete-icon.png"
-              alt="Delete"
-              className="w-5 h-5 mx-auto"
-            />
+          <div className="flex justify-center items-center" style={{ width: headers[8].width }}>
+            <DeleteIcon />
           </div>
+
         </div>
       ))}
     </div>

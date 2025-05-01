@@ -2,8 +2,6 @@ import React from "react";
 import { Outlet, NavLink, useLocation, useNavigate } from "react-router-dom";
 
 function AddPOInward3() {
-    const location = useLocation();
-    const navigate = useNavigate();
 
     const tabs = [
         { label: "Add PO Inward", path: "addpo" },

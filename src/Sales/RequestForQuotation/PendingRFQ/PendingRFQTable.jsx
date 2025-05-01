@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import FilterSection from "../../components/FilterSection";
 import CustomTable from "../../../components/CustomTable";
 import { HEADER_ITEMS } from "../../../constants/tableHeader";
@@ -10,6 +11,20 @@ function PendingRFQTable() {
   const [tableData, setTableData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const handleEdit = (rowData) => {
+    const API_BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
+    console.log(rowData);
+    // navigate to the create quotation page and also pass the row data
+    navigate(`/sales/quotations/create`, {
+      state: {
+        data: rowData,
+      },
+      replace: true,
+    });
+  };
+  
 
   useEffect(() => {
     const getRFQData = async () => {
@@ -44,7 +59,9 @@ function PendingRFQTable() {
               rejected: "#ff7316",
             },
           }}
-          isAction={false}
+          isAction={true}
+          // onEdit will return the row data
+          onEdit={handleEdit}
         />
       )}
     </div>

@@ -5,10 +5,13 @@ import CustomTable from "../../../components/CustomTable";
 import { HEADER_ITEMS } from "../../../constants/tableHeader";
 import CenteredLoader from "../../../components/LottiLoader";
 import { regexFilter } from "../../../utils/FilterFunction";
+import { useNavigate } from "react-router-dom";
+import { handleEdit } from "@/utils/helperFunction";
 function ViewAllRFQTable() {
   const [tableData, setTableData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,6 +76,7 @@ function ViewAllRFQTable() {
     setFilteredData(filtered);
   };
 
+
   return (
     <div className="flex flex-col w-full max-md:max-w-full overflow-auto">
       <FilterSection onFilter={handleFilter} />
@@ -89,7 +93,8 @@ function ViewAllRFQTable() {
               rejected: "#ff7316",
             },
           }}
-          isAction={false}
+          isAction={true}
+            onEdit={(rowData) => handleEdit(rowData, "/sales/quotations/create",navigate)}
         />
       )}
     </div>

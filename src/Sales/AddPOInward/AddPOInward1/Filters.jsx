@@ -1,7 +1,7 @@
 //use state item details(unique key), pass empty list, convert details into json and push into list, render in the table below
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function Filters() {
+function Filters({dataToFill}) {
     const [formData, setFormData] = useState({
         workOrderNumber: "",
         customerName: "",
@@ -17,6 +17,19 @@ function Filters() {
         qtyNos: "",
         unitRate: ""
     });
+
+    // Fill the form with dataToFill if available
+    useEffect(() => {
+        if (dataToFill) {
+            console.log("dataToFill", dataToFill);
+            setFormData((prev) => ({
+                ...prev,
+                customerName: dataToFill.customer_name || "",
+                quotationNumber: dataToFill.quotationid || "",
+                quotationDate: dataToFill.created_at || "",
+            }));
+        }
+    }, [dataToFill]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
